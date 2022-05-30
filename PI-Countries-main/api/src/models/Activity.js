@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define("activity", {
-    
+
     countryId: {
       type: DataTypes.UUID,
       allowNull: false,
