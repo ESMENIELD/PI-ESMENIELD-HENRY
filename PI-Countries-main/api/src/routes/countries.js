@@ -27,7 +27,10 @@ const getAllFromApi= async () => { //función que me trae todos los datos y es a
     return apiInfo;
 }
 
-const getDbInfo = async () => {// función que tre la info de la base de datos que haya sido creada, tambien asíncrona.
+const getDbInfo = async () => {
+    // función que tre la info de la base de datos actividades que hayan sido creadas
+    // asociadas a cada pais
+    //tambien asíncrona.
     return await Country.findAll({
       include:{
         
@@ -52,21 +55,24 @@ const getAllCountries = async () => { //función que concatena los datos de la a
 
 } 
 
-/////ruta de paises
+/////ruta de paises, si no le llega un nombre por query, trae todos los paises 
 router.get('/countries', async (req,res) => {
     const name = req.query.name;
     let allCountries= await getAllCountries();
-
+   
     if (name){
        
-       
-        let countryName = allCountries.filter(e => e.name.oficial==name || e.name.common==name);
+        //console.log(allCountries[0])
+        let countryName = allCountries.filter(e => e.name.oficial===name || e.name.common===name);
         countryName.length ? 
         res.status(200).send(countryName):
-        res.status(404).send(`The Country ${name} don't exist, please try whit another name`)
+        res.status(404).send(`The Country "${name}" don't exist, please try whit another name`)
     }else{res.status(200).send(allCountries)}
 })
-////ruta de id
+
+
+
+//ruta de id 
 router.get('/countries/:id', async (req,res) => {
    
     const id= req.params.id;
@@ -79,10 +85,10 @@ router.get('/countries/:id', async (req,res) => {
         console.log(allCountries[0])
         countryId.length ? 
         res.status(200).send(countryId):
-        res.status(404).send(`The code ${id} don't exist, please try whit another code`)
+        res.status(404).send(`The code "${id}" don't exist, please try whit another code`)
     }
     
-console.log(id)
+//console.log(id)
 })
 
 
