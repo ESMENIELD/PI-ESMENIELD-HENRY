@@ -5,6 +5,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+  
     },
     dificult: {
       type: DataTypes.STRING,
@@ -15,5 +16,10 @@ module.exports = (sequelize) => {
     season: {
       type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
     },
+    createInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    }
   }, {timestamps: false});
 };

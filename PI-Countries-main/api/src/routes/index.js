@@ -15,9 +15,7 @@ const router = Router();
 
 router.use('/', countries);
 
-router.use('/', countries);
-
-router.use('/', activities)
+router.use('/', activities);
 
 
 
