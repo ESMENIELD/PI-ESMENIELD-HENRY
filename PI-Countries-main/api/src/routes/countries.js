@@ -74,7 +74,7 @@ const getDbInfo = async () => {
     //tambien asíncrona.
    return await Country.findAll({include:{
        model: Activity,
-       attributes: ['name', 'dificult', 'duration', 'season']
+       attributes: ['name', 'dificulty', 'duration', 'season']
     
 
    }

@@ -7,16 +7,17 @@ module.exports = (sequelize) => {
       allowNull: false,
   
     },
-    dificult: {
-      type: DataTypes.STRING,
+    dificulty: {
+      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
     },
     duration: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     },
     season: {
       type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
     },
-    createInDb: {
+    createInDb: { 
+      
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true,

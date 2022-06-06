@@ -11,14 +11,14 @@ const router = Router();
 router.post('/activity', async (req, res) =>{
     let {countryId,
          name,
-        dificult,
+        dificulty,
         duration,
         season 
     } = req.body;
 
     const activityCreated = await Activity.create({
         name: name,
-        dificult: dificult,
+        dificulty: dificulty,
         duration: duration,
         season: season
     });
@@ -32,6 +32,12 @@ router.post('/activity', async (req, res) =>{
     res.send('activity created successfully')
 
 
+})
+router.get('/activities', async (req,res)=> {
+    const getActivities= await Activity.findAll({incluide: Country})
+    getActivities.length ?
+    res.status(200).send(getActivities):
+    res.status(404).send('no hay actividades creadas aun')
 })
 
 module.exports = router

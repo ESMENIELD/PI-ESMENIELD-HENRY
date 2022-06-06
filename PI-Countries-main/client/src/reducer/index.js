@@ -2,7 +2,9 @@
 
 const inicialState = {
     countries : [],
-    allCountries: []
+    allCountries: [],
+    activities: [],
+    allActivities:[]
 }
 
 
@@ -15,9 +17,15 @@ const rootReducer = (state= inicialState, action) => {
                 countries: action.payload,
                 allCountries: action.payload
             }
+
+        case 'GET_ACTIVITIES':
+            return {
+                ...state,
+                activities: action.payload,
+            }    
         case 'FILTER_BY_CONTINENT':
             const allcountries= state.allCountries;
-            const continentFilter = action.payload === 'All'? allcountries : allcountries.filter(e=> e.continent === action.payload)
+            const continentFilter = allcountries.filter(e=> e.continent === action.payload)
             return{
                 ...state,
                 countries: continentFilter
@@ -26,13 +34,11 @@ const rootReducer = (state= inicialState, action) => {
         case 'FILTER_BY_ACTIVITY':
             
         
-        const filtro= state.allCountries.map(coun => coun.activities.some(act => 
-        act.name === action.payload 
-        ))
+        const filterAct= state.allCountries.filter(e=> e.activities && e.activities.map(c=>c.name).includes(action.payload))
 
         return {
             ...state,
-            countries: filtro
+            countries: filterAct
         }
         default:
             return state;

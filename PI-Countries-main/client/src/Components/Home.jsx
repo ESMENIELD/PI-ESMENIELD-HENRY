@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux';
-import { getCountries, filterCountriesByContinent, filterCountriesByActivity } from "../actions";
+import { getCountries, filterCountriesByContinent, filterCountriesByActivity, getActivities } from "../actions";
 import { Link } from "react-router-dom";
 import Country from './Country';
 import Paginado from "./Paginado"; 
@@ -10,6 +10,7 @@ export default function Home (){
 
     const dispatch = useDispatch(); // despacha aciones medante hooks 
     const allCountries= useSelector ((state)=> state.countries);//me trae todo lo que está en en stado de countries
+    const allActivities= useSelector((state)=> state.activities)
     const [currentPage, setCurrentPage] = useState(1);
     const [countriesPerPage]= useState(10);
     const indexLastCountry =  currentPage===1 ? 9 : currentPage * countriesPerPage;
@@ -25,6 +26,12 @@ export default function Home (){
 
     useEffect (()=>{
         dispatch(getCountries());
+    
+        
+    },[dispatch])
+
+    useEffect (()=>{
+        dispatch(getActivities())
         
     },[dispatch])
 
@@ -39,10 +46,13 @@ export default function Home (){
 
    function handleFilterActivity (e) {
        dispatch(filterCountriesByActivity(e.target.value))
+       
    } 
-
-    return (
+   const actividades= allCountries.map(e=> e.activities?.filter(b=>b.name === "conga"))
+   const continent= allCountries.filter(e=> e.activities && e.activities.map(c=>c.name).includes("conga"))
+return (
         <div>
+            {console.log(actividades, continent)}
             <Link to='/activity'>Create Activity</Link>
 
             <h1>Los Paises re Contentos </h1>
@@ -57,7 +67,7 @@ export default function Home (){
                 </select>
                 <select onChange={e=> handleFilterContinent(e)}>
                     
-                    <option value="All">Filter by Continent</option>
+                    <option value="">Filter by Continent</option>
                     <option value="Europe">Europe</option>
                     <option value="Asia">Asia</option>
                     <option value="Oceania">Oceania</option>
@@ -67,11 +77,11 @@ export default function Home (){
                 </select>
                 <select onChange={e=> handleFilterActivity(e)}>
                     
-                {currentCountry?.map(e => {
-                    const namesActivities= e.activities.map(a => a.name );
+                {allActivities?.map(e => {
+                    
                 return(
                     
-                    <option value={namesActivities}>{namesActivities}</option>
+                    <option value={e.name}>{e.name}</option>
                 )})
                 }
 
