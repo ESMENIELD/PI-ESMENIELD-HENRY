@@ -18,7 +18,7 @@ export default function Home (){
     const currentCountry= allCountries.slice(indexFirstCountry, indexLastCountry);
 
 
-    const paginado = (pageNumber) => {
+  const paginado = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
 
@@ -48,11 +48,10 @@ export default function Home (){
        dispatch(filterCountriesByActivity(e.target.value))
        
    } 
-   const actividades= allCountries.map(e=> e.activities?.filter(b=>b.name === "conga"))
-   const continent= allCountries.filter(e=> e.activities && e.activities.map(c=>c.name).includes("conga"))
+ 
 return (
         <div>
-            {console.log(actividades, continent)}
+            
             <Link to='/activity'>Create Activity</Link>
 
             <h1>Los Paises re Contentos </h1>
@@ -90,14 +89,14 @@ return (
                     
 
                 </select>
-                <Paginado countriesPerPage={countriesPerPage} allCountries= {allCountries.length} paginado= {paginado}/>
-
+                 <Paginado countriesPerPage={countriesPerPage} allCountries= {allCountries.length} paginado= {paginado}/>
+                  
             {currentCountry?.map(e => {
-                return(
+               return(
                  <Country id= {e.id} name= {e.name} flag= {e.flag} continent= {e.continent}/>
-                )
-             })}
-
+            )
+            })}
+ 
             </div>
             
 

@@ -40,6 +40,14 @@ const rootReducer = (state= inicialState, action) => {
             ...state,
             countries: filterAct
         }
+        case 'FILTER_ACT_BY_ID':
+            
+        const filterId = state.activities.filter(e => e.countries_activities && e.countries_activities.map(c=> c.countryId).includes(action.payload));
+
+        return {
+            ...state,
+            activities: filterId
+        }    
         default:
             return state;
     }

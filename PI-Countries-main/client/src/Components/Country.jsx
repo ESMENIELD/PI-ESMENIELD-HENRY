@@ -1,8 +1,11 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
-const Country = ({ flag, name, continent, id }) => {
+
+const Country = ({ flag, name, continent,id}) => {
+
+ 
+ 
   return (
       <div >
     
@@ -13,7 +16,7 @@ const Country = ({ flag, name, continent, id }) => {
           </div>
           <h3>{continent}</h3>
           
-        
+        <Link to ="/activities">show activities</Link>
       
     </div>
   );

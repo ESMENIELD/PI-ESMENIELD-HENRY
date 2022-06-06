@@ -6,3 +6,7 @@ import rootReducer from "../reducer/index";
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
  export default store
+
+
+ //redux tiene una tienda que store que despacha acciones, estas actiones 
+ //

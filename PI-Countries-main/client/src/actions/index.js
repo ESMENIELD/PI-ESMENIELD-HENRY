@@ -21,6 +21,12 @@ export function getActivities () {
     }
 
 }
+export function ActivitiesById (payload) {
+    return ({
+        type: 'FILTER_ACT_BY_ID',
+        payload
+    })
+}
 
 export function filterCountriesByContinent (payload) {
 
