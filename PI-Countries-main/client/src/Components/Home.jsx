@@ -1,16 +1,16 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux';
-import { getCountries, filterCountriesByContinent, filterCountriesByActivity, getActivities } from "../actions";
+import { getCountries, filterCountriesByContinent, filterByAvtivities } from "../actions";
 import { Link } from "react-router-dom";
 import Country from './Country';
 import Paginado from "./Paginado"; 
+import SearchBar from "./SearchBar";
 
 export default function Home (){
 
     const dispatch = useDispatch(); // despacha aciones medante hooks 
     const allCountries= useSelector ((state)=> state.countries);//me trae todo lo que está en en stado de countries
-    const allActivities= useSelector((state)=> state.activities)
     const [currentPage, setCurrentPage] = useState(1);
     const [countriesPerPage]= useState(10);
     const indexLastCountry =  currentPage===1 ? 9 : currentPage * countriesPerPage;
@@ -30,10 +30,7 @@ export default function Home (){
         
     },[dispatch])
 
-    useEffect (()=>{
-        dispatch(getActivities())
-        
-    },[dispatch])
+ 
 
    function handleClick(e){//funcion para manejar el dispach en el boton reload
        e.preventDefault();
@@ -43,11 +40,10 @@ export default function Home (){
        
        dispatch(filterCountriesByContinent(e.target.value));
    }
+   function handleFilterActivity (e){
+    dispatch(filterByAvtivities(e.target.value))
+   }
 
-   function handleFilterActivity (e) {
-       dispatch(filterCountriesByActivity(e.target.value))
-       
-   } 
  
 return (
         <div>
@@ -60,6 +56,7 @@ return (
                 Reload all countries
             </button>
             <div>
+                <SearchBar/>
                 <select >
                     <option value="asc">ascendente</option>
                     <option value="des">descendente</option>
@@ -76,19 +73,21 @@ return (
                 </select>
                 <select onChange={e=> handleFilterActivity(e)}>
                     
-                {allActivities?.map(e => {
+                {allCountries.map(e => e.activities && e.activities.map(e=>
+                {
                     
-                return(
-                    
-                    <option value={e.name}>{e.name}</option>
-                )})
+                    return(
+                        
+                        <option value={e.name}>{e.name}</option>
+                    )}) )
                 }
+                </select>
 
                         
                  
                     
 
-                </select>
+                
                  <Paginado countriesPerPage={countriesPerPage} allCountries= {allCountries.length} paginado= {paginado}/>
                   
             {currentCountry?.map(e => {

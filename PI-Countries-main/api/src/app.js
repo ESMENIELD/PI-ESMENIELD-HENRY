@@ -24,6 +24,12 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 
+server.use((error, req, res, next)=> {
+
+  return res.status(404).json({error: error.message})
+
+})
+
 
 
 

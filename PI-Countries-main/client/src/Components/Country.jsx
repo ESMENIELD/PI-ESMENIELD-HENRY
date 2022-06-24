@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 
 const Country = ({ flag, name, continent,id}) => {
 
+
  
  
   return (
-      <div >
+      <div key={id}>
     
       
           <h2 >{name}</h2>
@@ -16,7 +17,7 @@ const Country = ({ flag, name, continent,id}) => {
           </div>
           <h3>{continent}</h3>
           
-        <Link to ="/activities">show activities</Link>
+        <Link to ={`/detail/${id}`}>show Detail</Link>
       
     </div>
   );
