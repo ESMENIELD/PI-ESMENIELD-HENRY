@@ -28,17 +28,17 @@ server.use((error, req, res, next)=> {
 
   return res.status(404).json({error: error.message})
 
-})
+ })
 
 
 
 
 // Error catching endware.
-server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
+server.use((error, req, res, next) => { // eslint-disable-line no-unused-vars
+  const status = error.status || 500;
+  const message = error.message || err;
+  console.error(error);
   res.status(status).send(message);
 });
 
-module.exports = server;
+module.exports = server

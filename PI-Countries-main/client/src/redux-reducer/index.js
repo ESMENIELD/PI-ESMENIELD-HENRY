@@ -3,6 +3,7 @@ const inicialState = {
   allCountries: [],
   activities: [],
   countryDetail: [],
+  actuvities:[]
 };
 
 const rootReducer = (state = inicialState, action) => {
@@ -13,6 +14,11 @@ const rootReducer = (state = inicialState, action) => {
         countries: action.payload,
         allCountries: action.payload,
       };
+      case "GET_ACTIVITIES":
+        return {
+          ...state,
+          activities: action.payload
+        };  
 
     case "GET_DETAIL":
       return {
@@ -48,6 +54,7 @@ const rootReducer = (state = inicialState, action) => {
           ...state,
           countries: action.payload,
         };  
+
 
       
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getName } from "../actions/index";
+import { getName } from "../redux-actions/index";
 
 const SearchBar = () => {
   const [input, setInput] = useState("");
@@ -9,24 +9,28 @@ const SearchBar = () => {
 
   const inputHandler = (e) => {
     setInput(e.target.value);
+    
   };
-  const onClickHandler = () => {
+  const onClickHandler = (e) => {
     dispatch(getName(input));
+    setInput('')
   };
 
 
 
   return (
-    <div>
+    <div >
       <input
+      
         type="text"
         placeholder="Search by name"
         name="input"
+        value={input}
         autocomplete="off"
         onChange={(e) => inputHandler(e)}
       />
       <div>
-        <button  onClick={() => onClickHandler()}>
+        <button  onClick={(e) => onClickHandler(e)}>
           Search
         </button>
     

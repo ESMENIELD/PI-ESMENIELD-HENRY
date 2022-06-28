@@ -45,16 +45,16 @@ export function getName(name) {
 }
 
 
-// export function getActivities () {
+export function getActivities () {
 
     
-//     return async function (dispatch){
-//         var json = await axios.get("http://localhost:3001/activities");
-//         return dispatch({type: 'GET_ACTIVITIES', payload: json.data});
+    return async function (dispatch){
+        var json = await axios.get("http://localhost:3001/activities");
+        return dispatch({type: 'GET_ACTIVITIES', payload: json.data});
 
-//     }
+    }
 
-// }
+}
 
 
    

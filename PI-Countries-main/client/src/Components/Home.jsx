@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux';
-import { getCountries, filterCountriesByContinent, filterByAvtivities } from "../actions";
+import { getCountries, filterCountriesByContinent, filterByAvtivities, getActivities } from "../redux-actions/index";
 import { Link } from "react-router-dom";
 import Country from './Country';
 import Paginado from "./Paginado"; 
@@ -10,7 +10,8 @@ import SearchBar from "./SearchBar";
 export default function Home (){
 
     const dispatch = useDispatch(); // despacha aciones medante hooks 
-    const allCountries= useSelector ((state)=> state.countries);//me trae todo lo que está en en stado de countries
+    const allCountries= useSelector((state)=> state.countries);//me trae todo lo que está en en stado de countries
+    const activities= useSelector((state)=> state.activities);
     const [currentPage, setCurrentPage] = useState(1);
     const [countriesPerPage]= useState(10);
     const indexLastCountry =  currentPage===1 ? 9 : currentPage * countriesPerPage;
@@ -26,6 +27,7 @@ export default function Home (){
 
     useEffect (()=>{
         dispatch(getCountries());
+        dispatch(getActivities());
     
         
     },[dispatch])
@@ -71,22 +73,17 @@ return (
                     <option value="Africa">Africa</option>
                     <option value="Americas">Americas</option>
                 </select>
-                <select onChange={e=> handleFilterActivity(e)}>
+                <select onClick={e=> handleFilterActivity(e)}>
                     
-                {allCountries.map(e => e.activities && e.activities.map(e=>
+                {activities.map(e=>
                 {
                     
                     return(
                         
-                        <option value={e.name}>{e.name}</option>
-                    )}) )
+                        <option  value={e.name}>{e.name}</option>
+                    )}) 
                 }
                 </select>
-
-                        
-                 
-                    
-
                 
                  <Paginado countriesPerPage={countriesPerPage} allCountries= {allCountries.length} paginado= {paginado}/>
                   

@@ -4,9 +4,9 @@ const router = Router();
 
 
 router.post('/activity', async (req, res, next) => {
-    let { countryId,
+    let { countries,
         name,
-        dificulty,
+        difficulty,
         duration,
         season
     } = req.body;
@@ -14,11 +14,11 @@ router.post('/activity', async (req, res, next) => {
     try {
         const activityCreated = await Activity.create({
             name: name,
-            dificulty: dificulty,
+            difficulty: difficulty,
             duration: duration,
             season: season
         });
-        countryId.map(async id => {
+        countries.map(async id => {
             const matchCountry = await Country.findOne({
                 where: { id: id }
             });
@@ -35,16 +35,16 @@ router.post('/activity', async (req, res, next) => {
 
 })
 
-// router.get('/activities', async (req,res)=> {
+router.get('/activities', async (req,res)=> {
 
-//     const getActivities= await Activity.findAll({include: Country})
-//     console.log(getActivities)
+    const getActivities= await Activity.findAll()
+    console.log(getActivities)
 
-//     getActivities.length ?
-//     res.status(200).send(getActivities):
-//     res.status(404).send('no hay actividades creadas aun')
+    getActivities.length ?
+    res.status(200).send(getActivities):
+    res.status(404).send('no hay actividades creadas aun')
 
-// })
+})
 
 
 // router.get('/activities/:id', async (req,res)=> {

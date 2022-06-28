@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import { getCountriesById, getCountries } from "../actions";
+import { getCountriesById, getCountries } from "../redux-actions/index";
 import MiniCountry from "./MiniCountry";
 
 const Detail = () => {
